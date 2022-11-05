@@ -1,25 +1,55 @@
-import logo from './logo.svg';
 import './App.css';
+import "bootstrap"
+import "bootstrap/scss/bootstrap.scss";
+import AddPost from "./Components/AddPost"
+import React, {Component} from "react"
+import {LangContext} from './utils/context'
+import Post from './Components/Post';
 
-function App() {
+
+class App extends Component{
+constructor(props){
+  super(props)
+  this.state = {
+    posts : ["i am the first post at yous social media"]
+  }
+}
+
+addAPost (thePost) {
+  var temp = [...this.state.posts]
+  temp.push(thePost)
+  this.setState({
+      posts : temp
+  })
+}
+
+render(){
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <LangContext.Provider
+        value={
+          {
+            addAPost : this.addAPost.bind(this),
+            posts : this.state.posts
+          }
+        }
+      >
+      <div> 
+        <AddPost />
+     </div>
+     <Post />
+
+    {/* {
+      this.props.posts?.map((post, idx)=>{
+        return <Post post={post}/>
+      })
+     }*/}
+
+      </LangContext.Provider>
+    
+
   );
+}
+  
 }
 
 export default App;
