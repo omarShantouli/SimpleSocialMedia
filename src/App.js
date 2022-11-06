@@ -11,11 +11,11 @@ class App extends Component{
 constructor(props){
   super(props)
   this.state = {
-    posts : ["i am the first post at yous social media"]
+    posts : []
   }
 }
 
-addAPost (thePost) {
+add = (thePost)=>{
   var temp = [...this.state.posts]
   temp.push(thePost)
   this.setState({
@@ -23,28 +23,59 @@ addAPost (thePost) {
   })
 }
 
+changeLike = (idx)=>{
+  var temp = [...this.state.posts];
+  temp[idx].liked = !temp[idx].liked;
+  console.log(this.state.posts);
+  this.setState({
+    posts : temp
+  })
+}
+
+show = (idx) => {
+  console.log("i am show function");
+  var temp = [...this.state.posts];
+  temp[idx].showComment = true;
+  console.log(this.state.posts);
+  this.setState({
+    posts : temp
+  })
+}
+
+addComment = (comment, idx) => {
+      console.log(idx);
+      var temp = [...this.state.posts]
+      temp[idx]?.comments.push(comment)
+      this.setState({
+        posts : temp
+      })
+}
+
+
 render(){
   return (
-    <LangContext.Provider
+    <div>
+      {console.log(this.state.posts)}
+       <LangContext.Provider
         value={
           {
-            addAPost : this.addAPost.bind(this),
-            posts : this.state.posts
+            posts : this.state.posts,
+            add : this.add,
+            changeLike : this.changeLike,
+            show : this.show,
+            addComment : this.addComment
           }
         }
       >
       <div> 
         <AddPost />
      </div>
-     <Post />
-
-    {/* {
-      this.props.posts?.map((post, idx)=>{
-        return <Post post={post}/>
-      })
-     }*/}
-
+     <div className='ms-5'>
+        <Post />
+     </div>
       </LangContext.Provider>
+    </div>
+   
     
 
   );

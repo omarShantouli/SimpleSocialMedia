@@ -1,38 +1,50 @@
 import "./subComp/commentStyle.scss"
-import {useState} from "react"
-import ViewComments from "./ViewComments"
+import {Component} from "react"
+import { LangContext } from "../utils/context"
 
-function CommentForm(props){
+class CommentForm extends Component{
     
-    var [text, setText] = useState("");
-    var [comments, setComment] = useState([]);
 
-    function addText(e)
-    {
-        setText(e.target.value)
+    constructor(props){
+        super(props)
+        this.state = {
+            text : ""
+        }
     }
-    function createComment(e)
+
+     addText(e)
+    {
+        this.setState({
+            text : e.target.value
+        })
+    }
+
+    createComment(e)
     {
         e.preventDefault();
-        var temp = comments;
-        temp.push(e.target.value);
-        setComment(temp)
+        this.context.addComment(this.state.text, this.props.idx);
+        this.setState({
+            text : ""
+        })
     }
 
-    return(
+    render(){
+       return(
         <div>
-             <form onSubmit={createComment}>
+             <form onSubmit={this.createComment.bind(this)}>
                <input
                     type="text" 
                     placeholder="Write your comment"
-                    className="rounded mt-5 commentInput"
-                    value={text}
-                    onChange={addText}
+                    className="rounded mt-5 commentInput col-3"
+                    value={this.state.text}
+                    onChange={this.addText.bind(this)}
                 /> 
             </form>
-            <ViewComments allComments={comments} />
         </div>
-    )
+    ) 
+    }
+    
 }
 
 export default CommentForm;
+CommentForm.contextType = LangContext

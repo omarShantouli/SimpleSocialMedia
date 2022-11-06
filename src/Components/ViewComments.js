@@ -1,24 +1,28 @@
+import {Component} from "react"
+import "./subComp/commentStyle.scss"
 
+class ViewComments extends Component{
 
-
-function ViewComments(props)
-{
-
-
-    return(
+    render()
+    {
+        return(
         <div>
-            {console.log(props)}
             {
-            props.allComments?.map((comment, idx)=>{
-                return <div key={idx}>
-                        {comment}
-                        {new Date().toLocaleDateString()}
-                    </div>
-            })
+                this.props?.comments.map((comment, idx) => {
+                    return <div key={idx} className='comment rounded'>
+                                <div>
+                                    {comment}
+                                </div>
+                                <div className="date">
+                                    {new Date().toLocaleDateString()}
+                                </div>
+                        </div>
+                })
             }
+            
         </div>
-        
     )
+    }
 }
 
 export default ViewComments

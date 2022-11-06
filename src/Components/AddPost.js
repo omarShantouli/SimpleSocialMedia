@@ -15,10 +15,17 @@ class AddPost extends Component{
     }
 
      add(e){
-        console.log(this.context.posts);
         e.preventDefault()
-        this.context.AddAPost(this.state.text)
-
+        var temp = {
+            showComment : false,
+            liked : false,
+            text : this.state.text,
+            comments : []
+        }
+        this.context.add(temp)
+        this.setState({
+            text : ""
+        })
     }
 
     changeText(e){
@@ -47,7 +54,6 @@ class AddPost extends Component{
                         Add post</button>
                      </div>
                 </form>
-                {/*<Post text={"omar hantouli is a student in gaza sky geeks"}/>*/}
             </div>
         )
     }

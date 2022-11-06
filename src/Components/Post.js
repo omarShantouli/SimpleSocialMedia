@@ -2,66 +2,69 @@ import "./subComp/postStyle.scss";
 import CommentForm from "./CommentForm";
 import React, {Component} from "react";
 import {LangContext} from '../utils/context'
-
+import ViewComments from "./ViewComments"
 class Post extends Component{
-    constructor(props){
-        super(props)
-        this.state = {
-            show : false,
-            liked : false
-        }
-    }
 
-     showComment(e){
-        e.preventDefault();
-        this.setState({
-            show : true
-        })
+     showComment(idx){
+        this.context.show(idx)
     }
 
 
-     changeLike(e)
+     changeLike( idx)
     {
-        e.preventDefault();
-        this.setState((state)=>{
-            return{
-                liked : !state.liked
-            }
-        })
+        this.context.changeLike(idx);
     }
 
-render(){
-    return (
-        <div>
+    f (e){
+        e.preventDefault();
+    }
+
+    render(){
+        return (
+            <div>
             {
                 this.context.posts?.map((post, idx)=>{
                     return <div key={idx}>
-                                <form>
+                                <form onSubmit={this.f.bind(this)}>
                                     <div
                                         className="shadow-lg p-3 mb-5 bg-body rounded mt-5 thePost"
                                     >
-                                        {post}
+                                        {post.text}
                                     </div>
-                                        
-                                    <div>
-                                    <button onClick={this.changeLike.bind(this)} className={this.state.liked? "btn btn-primary" : "btn btn-light"}>Like</button>
-                                    <button className="btn btn-light ms-3"
-                                        onClick={this.showComment.bind(this)}
-                                    >
-                                        Add comment</button>  
+                                    <div className="buttons">
+                                        <button 
+                                            onClick={this.changeLike.bind(this, idx)} 
+                                            className={post.liked? "btn btn-primary" : "btn btn-light"} 
+                                        >
+                                            Like
+                                        </button>
+
+                                        <button
+                                             className="btn btn-light ms-3"
+                                             onClick={this.showComment.bind(this, idx)}
+                                        >
+                                            Add comment
+                                        </button>  
                                     </div>
                                 </form>
-                                {this.state.show?<CommentForm />:null}
+                                {
+                                    post.showComment?
+                                    <div>
+                                        <CommentForm idx={idx}/>
+                                    </div>
+                                    : null
+                                }
+                                <div>
+                                    <ViewComments comments={post.comments}/>
+                                </div>
+                                <hr/>
+                               
                         </div>
-                })
-            }
-            
-            
-        </div>
-    )
-
-}
-    
+                    })
+                } 
+            </div>
+        )
+    }
 }
 
 export default Post;
