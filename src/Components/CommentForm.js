@@ -35,7 +35,7 @@ class CommentForm extends Component{
                <input
                     type="text" 
                     placeholder="Write your comment"
-                    className="rounded mt-5 commentInput col-3"
+                    className="rounded mt-5 commentInput"
                     value={this.state.text}
                     onChange={this.addText.bind(this)}
                 /> 

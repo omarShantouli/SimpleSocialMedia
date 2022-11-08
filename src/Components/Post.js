@@ -1,4 +1,3 @@
-import "./subComp/postStyle.scss";
 import CommentForm from "./CommentForm";
 import React, {Component} from "react";
 import {LangContext} from '../utils/context'
@@ -21,30 +20,35 @@ class Post extends Component{
 
     render(){
         return (
-            <div>
+            <div className="thePost">
             {
                 this.context.posts?.map((post, idx)=>{
                     return <div key={idx}>
                                 <form onSubmit={this.f.bind(this)}>
                                     <div
-                                        className="shadow-lg p-3 mb-5 bg-body rounded mt-5 thePost"
+                                        className="shadow-lg p-3 mb-5 bg-body rounded mt-5 "
                                     >
                                         {post.text}
                                     </div>
-                                    <div className="buttons">
-                                        <button 
-                                            onClick={this.changeLike.bind(this, idx)} 
-                                            className={post.liked? "btn btn-primary" : "btn btn-light"} 
-                                        >
-                                            Like
-                                        </button>
+                                    <div className="buttons container row">
+                                        <div className="col-2">
+                                            <button 
+                                                onClick={this.changeLike.bind(this, idx)} 
+                                                className={post.liked? "btn btn-primary" : "btn btn-light"} 
+                                            >
+                                                Like
+                                            </button>  
+                                        </div>
+                                        <div className="col-2">
+                                            <button
+                                                className="btn btn-light ms-3"
+                                                onClick={this.showComment.bind(this, idx)}
+                                            >
+                                                Add comment
+                                            </button>   
+                                        </div>
 
-                                        <button
-                                             className="btn btn-light ms-3"
-                                             onClick={this.showComment.bind(this, idx)}
-                                        >
-                                            Add comment
-                                        </button>  
+                                         
                                     </div>
                                 </form>
                                 {

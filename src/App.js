@@ -5,7 +5,7 @@ import AddPost from "./Components/AddPost"
 import React, {Component} from "react"
 import {LangContext} from './utils/context'
 import Post from './Components/Post';
-
+import "./Components/subComp/AppStyle.scss"
 
 class App extends Component{
 constructor(props){
@@ -54,8 +54,6 @@ addComment = (comment, idx) => {
 
 render(){
   return (
-    <div>
-      {console.log(this.state.posts)}
        <LangContext.Provider
         value={
           {
@@ -70,14 +68,10 @@ render(){
       <div> 
         <AddPost />
      </div>
-     <div className='ms-5'>
+     <div>
         <Post />
      </div>
       </LangContext.Provider>
-    </div>
-   
-    
-
   );
 }
   

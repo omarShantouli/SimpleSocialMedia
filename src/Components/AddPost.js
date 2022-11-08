@@ -39,7 +39,7 @@ class AddPost extends Component{
             <div className="post">
                 <form>
                     <textarea
-                        className="shadow-lg p-3 mb-5 bg-body rounded"
+                        className="shadow-lg p-3 mb-5 bg-body rounded text-area "
                         value = {this.state.text}
                         onChange={this.changeText.bind(this)}
                         cols={100}

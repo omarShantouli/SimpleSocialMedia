@@ -1,8 +1,7 @@
-button{
-    width: 15%;
-}
 
-.post{
-    margin-left: 25%;
-    margin-top: 50px;
-}
+.text-area {
+    resize: none;
+    overflow: hidden;
+    min-height: 30px;
+    max-width: 100%;
+ }
