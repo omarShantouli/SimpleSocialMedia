@@ -45,7 +45,8 @@ show = (idx) => {
 addComment = (comment, idx) => {
       console.log(idx);
       var temp = [...this.state.posts]
-      temp[idx]?.comments.push(comment)
+      temp[idx]?.comments.push(comment);
+      temp[idx].showComment = false;
       this.setState({
         posts : temp
       })

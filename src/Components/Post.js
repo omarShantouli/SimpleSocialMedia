@@ -2,6 +2,7 @@ import CommentForm from "./CommentForm";
 import React, {Component} from "react";
 import {LangContext} from '../utils/context'
 import ViewComments from "./ViewComments"
+import "./subComp/postStyle.scss"
 class Post extends Component{
 
      showComment(idx){
@@ -23,14 +24,15 @@ class Post extends Component{
             <div className="thePost">
             {
                 this.context.posts?.map((post, idx)=>{
-                    return <div key={idx}>
+                    return <div>
+                            <div key={idx} className="postStyle borderStyle">
                                 <form onSubmit={this.f.bind(this)}>
                                     <div
-                                        className="shadow-lg p-3 mb-5 bg-body rounded mt-5 "
+                                        className="p-3 mb-5 bg-body mt-5 borderStyle d-flex"
                                     >
                                         {post.text}
                                     </div>
-                                    <div className="buttons container row">
+                                    <div className="buttons container row d-flex">
                                         <div className="col-2">
                                             <button 
                                                 onClick={this.changeLike.bind(this, idx)} 
@@ -41,7 +43,7 @@ class Post extends Component{
                                         </div>
                                         <div className="col-2">
                                             <button
-                                                className="btn btn-light ms-3"
+                                                className="btn btn-light btn2"
                                                 onClick={this.showComment.bind(this, idx)}
                                             >
                                                 Add comment
@@ -61,9 +63,10 @@ class Post extends Component{
                                 <div>
                                     <ViewComments comments={post.comments}/>
                                 </div>
-                                <hr/>
-                               
                         </div>
+                        <hr/>
+                        </div>
+                        
                     })
                 } 
             </div>
